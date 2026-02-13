@@ -168,7 +168,27 @@
         <div class="emoji skull">💀</div>
     </div>
 
+    <!-- Audio nascosto -->
+    <audio id="trollAudio" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        // Avvia l'audio quando l'utente interagisce con la pagina
+        const audio = document.getElementById('trollAudio');
+        
+        // Prova ad avviare subito (funziona su alcuni browser)
+        audio.play().catch(() => {
+            // Se fallisce, aspetta il primo click/touch
+            document.body.addEventListener('click', () => {
+                audio.play();
+            }, { once: true });
+            
+            document.body.addEventListener('touchstart', () => {
+                audio.play();
+            }, { once: true });
+        });
+        
         // Crea particelle animate
         const particlesContainer = document.getElementById('particles');
         const emojis = ['😂', '🤣', '😆', '💩', '🎉', '⭐', '💫', '💀', '☠️', '🔥', '⚠️', '🚨'];
@@ -189,11 +209,6 @@
 
         // Crea particelle continuamente
         setInterval(createParticle, 300);
-
-        // Audio (opzionale - richiede interazione utente)
-        document.body.addEventListener('click', () => {
-            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZSA0PVqzn77BdGAg+ltryxnMpBSuAzvLaizsIGGS67OmfSQ0NUqzm8LhjHAY2j9b');
-        }, { once: true });
     </script>
 </body>
 </html>
